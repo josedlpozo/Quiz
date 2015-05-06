@@ -12,7 +12,7 @@ exports.load = function(req, res, next, quizId){
 		}
 	).catch(function(error){next(error);});
 };
-
+ 
 //GET /quizes
 
 exports.index = function(req,res){
