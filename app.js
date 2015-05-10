@@ -44,6 +44,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req,res,next){
+  var f = new Date();
+  f = f.getMinutes();
+
+  req.session.hora = req.session.hora || f;
+
+  next();
+});
+
 app.use('/', routes);
 
 

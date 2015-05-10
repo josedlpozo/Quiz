@@ -7,6 +7,21 @@ exports.loginRequired = function(req,res,next){
     }
 };
 
+// MW de auto-logout
+exports.auto_logout = function(req,res,next){
+    var minutes = new Date;
+    minutes = minutes.getMinutes();
+    console.log("logout");
+    if(req.session.user){
+        if((minutes-req.session.hora)>2){
+            res.redirect('/logout');
+        }
+    }else{
+        next();    
+    }
+    
+};
+
 
 // Get /login   -- Formulario de login
 exports.new = function(req, res) {
