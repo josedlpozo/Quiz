@@ -32,7 +32,28 @@ exports.index = function(req,res){
 		
 };
 
-// GET /quizes/question
+// GET /quizes/new
+
+exports.new = function(req,res){
+	var quiz = models.Quiz.build(
+		{pregunta : "Pregunta", respuesta : "Respuesta"}
+		);
+
+	res.render('quizes/new', {quiz: quiz});
+};
+
+// POST /quizes/create
+
+exports.create = function(req, res){
+	var quiz = models.Quiz.build( req.body.quiz );
+	console.log("crear");
+	
+	quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+		res.redirect('/quizes');
+	})
+};
+
+// GET /quizes/show
 
 exports.show = function(req,res){
 	models.Quiz.find(req.params.quizId).then(function(quiz){
@@ -40,6 +61,7 @@ exports.show = function(req,res){
 	})
 };
 
+// GET /quizes/answer
 exports.answer = function(req,res){
 	var resultado = 'Incorrecto';	
 	if(req.query.respuesta === req.quiz.respuesta){
