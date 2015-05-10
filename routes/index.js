@@ -12,7 +12,8 @@ router.get('/', function(req, res) {
 });
 
 // Definición de rutas de quizes
-router.param('quizId', quizController.load);
+router.param('quizId', quizController.load); // autoload :quizId
+router.param('commentId', commentController.load); // autoload :commentId
 
 // Definición de rutas de sesion
 router.get('/login', sessionController.new);
@@ -43,5 +44,7 @@ router.get('/author' , author.author);
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish);
 
 module.exports = router;
