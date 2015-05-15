@@ -14,12 +14,10 @@ exports.auto_logout = function(req,res,next){
     console.log("logout");
     if(req.session.user){
         if((minutes-req.session.hora)>2){
-            res.redirect('/logout');
+            delete req.session.user;
         }
-    }else{
-        next();    
     }
-    
+    next();
 };
 
 
@@ -48,7 +46,7 @@ exports.create = function(req, res) {
 
         // Crear req.session.user y guardar campos   id  y  username
         // La sesión se define por la existencia de:    req.session.user
-        req.session.user = {id:user.id, username:user.username};
+        req.session.user = {id:user.id, username:user.username, isAdmin:user.isAdmin};
 
         res.redirect(req.session.redir.toString());// redirección a path anterior a login
     });
