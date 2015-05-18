@@ -11,6 +11,8 @@ var app = express();
 var methodOverride = require('method-override');
 var session = require('express-session');
 
+var models = require('./models/models');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -47,8 +49,9 @@ app.use(function(req, res, next) {
 app.use(function(req,res,next){
   var f = new Date();
   f = f.getMinutes();
-
   req.session.hora = req.session.hora || f;
+  
+
 
   next();
 });

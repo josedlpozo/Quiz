@@ -47,6 +47,14 @@ exports.autenticar = function(login, password, callback) {
     }).catch(function(error){callback(error)});
 };
 
+// GET /usuarios
+
+exports.lista_users = function(req, res) {
+    models.User.findAll().then(function(users){
+      res.render('user/usuarios', {users: users, errors: []});
+    });
+};
+
 
 // GET /user/:id/edit
 exports.edit = function(req, res) {

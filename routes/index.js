@@ -39,6 +39,8 @@ router.get('/quizes/statistics', sessionController.auto_logout, sessionControlle
 // Definición de ruta de autor
 router.get('/author' , author.author);
 
+router.get('/usuarios', userController.lista_users);
+
 // Definición de rutas de comentarios
 router.get('/quizes/:quizId(\\d+)/comments/new', sessionController.auto_logout, commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', sessionController.auto_logout, commentController.create);

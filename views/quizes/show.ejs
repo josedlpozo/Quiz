@@ -10,7 +10,7 @@ Pregunta: <%= quiz.pregunta %> <p>
 </form>
 
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
-
+<% console.log(quiz); %>
 <p><strong>Comentarios:</strong></p>
 <%for(index in quiz.Comments){%>
 	<%if(quiz.Comments[index].publicado){%>

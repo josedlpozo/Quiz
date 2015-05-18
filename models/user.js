@@ -42,6 +42,9 @@ module.exports = function(sequelize, DataTypes) {
             isAdmin: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false
+            },
+            numPreguntasCorrectas: {
+                type: DataTypes.INTEGER
             }    
         },
         {

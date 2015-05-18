@@ -111,7 +111,6 @@ exports.create = function(req, res){
 
 exports.edit = function(req,res){
 	var quiz = req.quiz;
-	console.log('edit');
 	res.render('quizes/edit', {quiz: quiz, errors: []});
 }
 
@@ -129,6 +128,7 @@ exports.answer = function(req,res){
 	if(req.query.respuesta === req.quiz.respuesta){
 		resultado = 'Correcto';
 	}
+	
 	res.render('quizes/answer', {quiz:req.quiz, respuesta:resultado, errors: []});
 };
 
@@ -149,19 +149,32 @@ exports.ownershipRequired = function(req,res,next){
 // GET /quizes/statistics
 
 exports.statistics = function(req,res){
-	models.Quiz.count().then(function(count){
-		res.json({
-			num_preg : count
-		});
-	});
 
-	models.Comment.count().then(function(count){
-		res.json({
-			num_comment : count
-		});
-	})
-
-	console.log(JSON.stringify(res.json.num_preg));
-	console.log(JSON.stringify(res.json.num_comment));
+models.Quiz.findAll().then(function(quizes){
+		var nPreguntas = quizes.length;
+		models.Comment.findAll().then(function(comments){
+			var nComentarios = comments.length;
+			var media = nComentarios/nPreguntas;
+			var sinComments = 0;
+			var conComments = 0;
+			var i = 0;
+			var array=[];
+			for(i=0; i<nComentarios; i++){
+				if(array[comments[i].QuizId]){
+					array[comments[i].QuizId]++;
+				}else{
+					array[comments[i].QuizId] = 1;
+				}
+			}
+			for(i=0; i<nPreguntas; i++){
+				if(array[i]){
+					conComments++;
+				} else{
+					sinComments++;
+				}
+			}
+			res.render('statistics/statistics', {count: nPreguntas, count_c: nComentarios, count_p: media, count_s: sinComments, count_cm: conComments, errors: []});
+		}).catch(function(error){next(error);})
+	}).catch(function(error){next(error);})
 
 };
