@@ -8,9 +8,19 @@ Pregunta: <%= quiz.pregunta %> <p>
 <input type="text" name="respuesta" value="Respuesta"/>
 <input type="submit" value="Enviar">
 </form>
-
+			<%if(session.user){%>
+			<%if(favorito === 0){%>
+				<form method="post" action="/user/<%= session.user.id %>/favourites/<%= quiz.id %>?_method=put">
+			  		<input  type="image" src="../../star_gris.png" alt="Submit">
+				</form>
+			<%};%>
+			<%if(favorito === 1){%>
+			<form method="post" action="/user/<%= session.user.id %>/favourites/<%= quiz.id %>?_method=delete">
+			  <input  type="image" src="../../star_oro.png" onClick="return confirm('Eliminar: <%= quiz.pregunta %> de Favoritos');">
+			</form>
+			<%}%>
+			<%}%>
 <p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
-<% console.log(quiz); %>
 <p><strong>Comentarios:</strong></p>
 <%for(index in quiz.Comments){%>
 	<%if(quiz.Comments[index].publicado){%>

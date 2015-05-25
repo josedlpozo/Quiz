@@ -7,7 +7,21 @@
 <table>
 <% var i; for(i=0; i<quizes.length; i++){ %>
 	<tr>
-		<td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+		<td><a href="/quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
+			<%if(marcado[i] === "0"){%>
+				<td>
+				<form method="post" action="/user/<%= session.user.id %>/favourites/<%= quizes[i].id %>?_method=put">
+			  		<input  type="image" src="../../star_gris.png" alt="Submit">
+				</form>
+				</td>
+			<%};%>
+			<%if(marcado[i] === "1"){%>
+				<td>
+			  <form method="post" action="/user/<%= session.user.id %>/favourites/<%= quizes[i].id %>?_method=delete">
+			  <input  type="image" src="../../star_oro.png" onClick="return confirm('Eliminar: <%= quizes[i].pregunta %> de Favoritos');">
+			  </td>
+			</form>
+			<%}%>
 		<% if(session.user){ 
 			if(session.user.isAdmin || session.user.id === quizes[i].UserId) {%>
 		<td><a href="/quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>

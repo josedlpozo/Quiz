@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"><title> Preguntas </title>
+  <meta charset="utf-8"><title>Quiz - josedlpozo</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel='stylesheet' 
         type='text/css'
@@ -34,6 +34,7 @@
 		<span><a href="/quizes/statistics">Estadisticas</a></span>
 		<% if(session.user){%>
 			<span><a href="/user/<%=session.user.id%>/quizes">Mis preguntas</a></span>
+			<span><a href="/user/<%=session.user.id%>/favourites">Favoritos</a></span>
 		<% } %>
 		<span><a href="/usuarios">Users</a></span>
 	</nav>
