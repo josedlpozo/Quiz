@@ -14,7 +14,8 @@ exports.auto_logout = function(req,res,next){
     console.log("logout");
     if(req.session.user){
         if((minutes-req.session.hora)>2){
-            delete req.session.user;
+
+            //delete req.session.user;
         }
     }
     next();

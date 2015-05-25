@@ -51,7 +51,6 @@ app.use(function(req,res,next){
   f = f.getMinutes();
   req.session.hora = req.session.hora || f;
   
-  if(session.user) console.log(session.user.addQuiz(null));
 
   next();
 });
